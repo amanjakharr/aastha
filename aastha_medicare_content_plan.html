@@ -1,0 +1,1121 @@
+
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600&family=DM+Sans:wght@300;400;500&display=swap');
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body, .root {
+    font-family: 'DM Sans', sans-serif;
+    color: var(--color-text-primary);
+    background: transparent;
+  }
+
+  .header {
+    padding: 2rem 0 1.5rem;
+    border-bottom: 0.5px solid var(--color-border-tertiary);
+    margin-bottom: 2rem;
+  }
+
+  .header-tag {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--color-text-secondary);
+    margin-bottom: 0.5rem;
+  }
+
+  .header h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 26px;
+    font-weight: 600;
+    color: var(--color-text-primary);
+    line-height: 1.3;
+  }
+
+  .header h1 span {
+    color: #0F6E56;
+  }
+
+  .header-sub {
+    font-size: 14px;
+    color: var(--color-text-secondary);
+    margin-top: 0.4rem;
+  }
+
+  .tabs {
+    display: flex;
+    gap: 0;
+    border-bottom: 0.5px solid var(--color-border-tertiary);
+    margin-bottom: 2rem;
+  }
+
+  .tab-btn {
+    background: transparent;
+    border: none;
+    border-bottom: 2px solid transparent;
+    padding: 0.6rem 1.5rem;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--color-text-secondary);
+    cursor: pointer;
+    transition: all 0.2s;
+    margin-bottom: -0.5px;
+  }
+
+  .tab-btn.active {
+    color: #0F6E56;
+    border-bottom: 2px solid #0F6E56;
+  }
+
+  .tab-btn:hover:not(.active) {
+    color: var(--color-text-primary);
+  }
+
+  .section { display: none; }
+  .section.active { display: block; }
+
+  .section-label {
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    font-weight: 500;
+    color: var(--color-text-tertiary);
+    margin-bottom: 1.5rem;
+  }
+
+  .card {
+    background: var(--color-background-primary);
+    border: 0.5px solid var(--color-border-tertiary);
+    border-radius: var(--border-radius-lg);
+    margin-bottom: 1.25rem;
+    overflow: hidden;
+  }
+
+  .card-header {
+    padding: 1rem 1.25rem;
+    cursor: pointer;
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    transition: background 0.15s;
+  }
+
+  .card-header:hover {
+    background: var(--color-background-secondary);
+  }
+
+  .card-num {
+    min-width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: #E1F5EE;
+    color: #0F6E56;
+    font-size: 12px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  .card-title-wrap { flex: 1; }
+
+  .card-type-badge {
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 2px 8px;
+    border-radius: 20px;
+    margin-bottom: 4px;
+    display: inline-block;
+  }
+
+  .badge-reel { background: #FAECE7; color: #993C1D; }
+  .badge-post { background: #E6F1FB; color: #185FA5; }
+  .badge-carousel { background: #EEEDFE; color: #3C3489; }
+  .badge-static { background: #EAF3DE; color: #3B6D11; }
+
+  .card-title {
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--color-text-primary);
+    line-height: 1.4;
+  }
+
+  .card-topic {
+    font-size: 12px;
+    color: var(--color-text-secondary);
+    margin-top: 3px;
+  }
+
+  .chevron {
+    font-size: 14px;
+    color: var(--color-text-tertiary);
+    transition: transform 0.2s;
+    flex-shrink: 0;
+    margin-top: 6px;
+  }
+
+  .card.open .chevron { transform: rotate(180deg); }
+
+  .card-body {
+    display: none;
+    padding: 0 1.25rem 1.25rem 1.25rem;
+    border-top: 0.5px solid var(--color-border-tertiary);
+  }
+
+  .card.open .card-body { display: block; }
+
+  .field {
+    margin-top: 1rem;
+  }
+
+  .field-label {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-text-tertiary);
+    margin-bottom: 5px;
+  }
+
+  .field-value {
+    font-size: 14px;
+    color: var(--color-text-primary);
+    line-height: 1.65;
+  }
+
+  .hook-box {
+    background: #FAEEDA;
+    border-left: 3px solid #BA7517;
+    border-radius: 0 var(--border-radius-md) var(--border-radius-md) 0;
+    padding: 0.75rem 1rem;
+    font-size: 14px;
+    font-weight: 500;
+    color: #633806;
+    font-style: italic;
+  }
+
+  .flow-step {
+    display: flex;
+    gap: 0.75rem;
+    margin-bottom: 0.75rem;
+    align-items: flex-start;
+  }
+
+  .flow-dot {
+    min-width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: #E1F5EE;
+    color: #0F6E56;
+    font-size: 11px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  .flow-text {
+    font-size: 13.5px;
+    line-height: 1.6;
+    color: var(--color-text-primary);
+  }
+
+  .flow-text strong {
+    font-weight: 500;
+    color: #0F6E56;
+  }
+
+  .key-points {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 6px;
+  }
+
+  .kp-tag {
+    font-size: 12px;
+    padding: 3px 10px;
+    background: var(--color-background-secondary);
+    border: 0.5px solid var(--color-border-tertiary);
+    border-radius: 20px;
+    color: var(--color-text-secondary);
+  }
+
+  .caption-box {
+    background: var(--color-background-secondary);
+    border-radius: var(--border-radius-md);
+    padding: 0.75rem 1rem;
+    font-size: 13px;
+    color: var(--color-text-primary);
+    line-height: 1.6;
+    font-style: italic;
+  }
+
+  .cta-box {
+    background: #E1F5EE;
+    border-radius: var(--border-radius-md);
+    padding: 0.6rem 1rem;
+    font-size: 13px;
+    font-weight: 500;
+    color: #085041;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .slide-block {
+    border: 0.5px solid var(--color-border-tertiary);
+    border-radius: var(--border-radius-md);
+    padding: 0.75rem 1rem;
+    margin-bottom: 0.6rem;
+  }
+
+  .slide-num {
+    font-size: 11px;
+    font-weight: 500;
+    text-transform: uppercase;
+    color: #185FA5;
+    letter-spacing: 0.07em;
+    margin-bottom: 4px;
+  }
+
+  .slide-content {
+    font-size: 13.5px;
+    color: var(--color-text-primary);
+    line-height: 1.55;
+  }
+
+  .divider {
+    height: 0.5px;
+    background: var(--color-border-tertiary);
+    margin: 1.25rem 0;
+  }
+
+  .stats-bar {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
+  }
+
+  .stat-pill {
+    background: var(--color-background-secondary);
+    border: 0.5px solid var(--color-border-tertiary);
+    border-radius: 20px;
+    padding: 5px 14px;
+    font-size: 13px;
+    color: var(--color-text-secondary);
+  }
+
+  .stat-pill span {
+    font-weight: 500;
+    color: var(--color-text-primary);
+  }
+</style>
+
+<div class="header">
+  <div class="header-tag">Instagram Content Strategy</div>
+  <h1>Dr. Anu Siidana's <span>Aastha Medicare</span></h1>
+  <div class="header-sub">Gurgaon &nbsp;·&nbsp; 10 Reels + 10 Posts &nbsp;·&nbsp; Healthcare & Women's Wellness</div>
+</div>
+
+<div class="stats-bar">
+  <div class="stat-pill"><span>10</span> Reel Ideas</div>
+  <div class="stat-pill"><span>10</span> Post Ideas</div>
+  <div class="stat-pill"><span>60–90s</span> Reel Length</div>
+  <div class="stat-pill">Pregnancy · Newborn · Wellness</div>
+</div>
+
+<div class="tabs">
+  <button class="tab-btn active" onclick="switchTab('reels', this)">Reels (10)</button>
+  <button class="tab-btn" onclick="switchTab('posts', this)">Posts (10)</button>
+</div>
+
+<div id="reels" class="section active">
+  <div class="section-label">Instagram Reel Ideas — 60–90 seconds each</div>
+
+  <!-- REEL 1 -->
+  <div class="card" id="r1">
+    <div class="card-header" onclick="toggleCard('r1')">
+      <div class="card-num">1</div>
+      <div class="card-title-wrap">
+        <div><span class="card-type-badge badge-reel">Reel</span></div>
+        <div class="card-title">Normal Delivery vs C-Section — What Nobody Tells You</div>
+        <div class="card-topic">Pregnancy Care &nbsp;·&nbsp; Evergreen</div>
+      </div>
+      <div class="chevron">▾</div>
+    </div>
+    <div class="card-body">
+      <div class="field">
+        <div class="field-label">Hook (first 3 seconds)</div>
+        <div class="hook-box">"क्या आप जानते हैं — Normal delivery और C-section के बीच का फर्क आपकी recovery को कैसे affect करता है?"</div>
+      </div>
+      <div class="field">
+        <div class="field-label">Full Flow Breakdown (60–90 sec)</div>
+        <div class="flow-step"><div class="flow-dot">1</div><div class="flow-text"><strong>0–10s (Hook + Intro):</strong> Doctor on camera asks the hook question. Text on screen: "Normal vs C-Section — Sab kuch jaano." Show a simple split-screen graphic of the two.</div></div>
+        <div class="flow-step"><div class="flow-dot">2</div><div class="flow-text"><strong>10–30s (Explain Normal Delivery):</strong> "Normal delivery mein baby naturally janam leta hai. Recovery tezi hoti hai — usually 2–3 din mein walk kar sakti ho. Breastfeeding bhi jaldi start hoti hai." Show a calm animated icon or text overlay.</div></div>
+        <div class="flow-step"><div class="flow-dot">3</div><div class="flow-text"><strong>30–50s (Explain C-Section):</strong> "C-section ek surgery hai — doctor jab normal delivery possible na ho tab recommend karte hain, jaise baby ka ulta hona ya complications. Recovery mein 4–6 hafte lagte hain." Keep tone neutral and non-judgmental.</div></div>
+        <div class="flow-step"><div class="flow-dot">4</div><div class="flow-text"><strong>50–70s (Key Message):</strong> "Dono safe hain — decision sirf doctor + mom milkar karte hain. Koi bhi delivery agar safe ho, wahi best hai." Doctor smiles to camera — builds trust.</div></div>
+        <div class="flow-step"><div class="flow-dot">5</div><div class="flow-text"><strong>70–85s (CTA):</strong> "Aur jaanna chahte ho? Comments mein puchho ya humse appointment lo." Aastha Medicare name + location on screen.</div></div>
+      </div>
+      <div class="field">
+        <div class="field-label">Key Points Covered</div>
+        <div class="key-points">
+          <span class="kp-tag">Recovery time difference</span>
+          <span class="kp-tag">When C-section is needed</span>
+          <span class="kp-tag">Both are safe choices</span>
+          <span class="kp-tag">Doctor's role in decision</span>
+        </div>
+      </div>
+      <div class="field">
+        <div class="field-label">Caption</div>
+        <div class="caption-box">Normal ya C-section — dono mein love aur care ek jaisa hota hai 💛 Apne doctor se openly baat karo aur sahi decision lo. #AasthaMedicare #PregnancyCare #NormalDelivery #MomsToBe #GurgaonHospital</div>
+      </div>
+      <div class="field">
+        <div class="field-label">CTA</div>
+        <div class="cta-box">➤ "Save this reel and share with a new mom. Appointment ke liye DM karo."</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- REEL 2 -->
+  <div class="card" id="r2">
+    <div class="card-header" onclick="toggleCard('r2')">
+      <div class="card-num">2</div>
+      <div class="card-title-wrap">
+        <div><span class="card-type-badge badge-reel">Reel</span></div>
+        <div class="card-title">5 Warning Signs During Pregnancy You Should NEVER Ignore</div>
+        <div class="card-topic">Pregnancy Safety &nbsp;·&nbsp; High Engagement</div>
+      </div>
+      <div class="chevron">▾</div>
+    </div>
+    <div class="card-body">
+      <div class="field">
+        <div class="field-label">Hook (first 3 seconds)</div>
+        <div class="hook-box">"Pregnant ho? Ye 5 signs dekhte hi turant doctor ke paas jao — wait mat karo!"</div>
+      </div>
+      <div class="field">
+        <div class="field-label">Full Flow Breakdown (60–90 sec)</div>
+        <div class="flow-step"><div class="flow-dot">1</div><div class="flow-text"><strong>0–8s (Hook):</strong> Doctor holds up 5 fingers to camera. Urgent but calm tone. Text overlay: "5 Danger Signs in Pregnancy."</div></div>
+        <div class="flow-step"><div class="flow-dot">2</div><div class="flow-text"><strong>8–20s (Sign 1 & 2):</strong> "Ek — bahut zyada bleeding. Do — tez bukhar 100°F se zyada." Show illustrated icon for each on screen.</div></div>
+        <div class="flow-step"><div class="flow-dot">3</div><div class="flow-text"><strong>20–40s (Sign 3 & 4):</strong> "Teen — aankhon ke aage andhera ya tez sir dard (ye BP ka sign ho sakta hai). Chaar — baby ka hichkichana ya movement bilkul band ho jaana." Doctor mimes checking baby kick count.</div></div>
+        <div class="flow-step"><div class="flow-dot">4</div><div class="flow-text"><strong>40–60s (Sign 5 + Explanation):</strong> "Paanch — haath-pair bahut zyada sujna, saath mein urine mein problem. Ye preeclampsia ka sign ho sakta hai." Brief explanation of why this matters — keeps audience engaged.</div></div>
+        <div class="flow-step"><div class="flow-dot">5</div><div class="flow-text"><strong>60–80s (Conclusion):</strong> "In mein se koi bhi sign ho — ghabrao mat, par deri bhi mat karo. Turant doctor se milo." Calm, reassuring close.</div></div>
+      </div>
+      <div class="field">
+        <div class="field-label">Key Points Covered</div>
+        <div class="key-points">
+          <span class="kp-tag">Bleeding warning</span>
+          <span class="kp-tag">High fever</span>
+          <span class="kp-tag">Preeclampsia signs</span>
+          <span class="kp-tag">Reduced fetal movement</span>
+          <span class="kp-tag">When to rush to hospital</span>
+        </div>
+      </div>
+      <div class="field">
+        <div class="field-label">Caption</div>
+        <div class="caption-box">Pregnancy mein koi bhi aisa feel ho — please ignore mat karo. Aapki aur baby ki sehat sabse pehle hai. Save kar lo, zaroorat pad sakti hai. 🙏 #PregnancyHealth #MomsToBe #AasthaMedicare #GurgaonMoms #SafePregnancy</div>
+      </div>
+      <div class="field">
+        <div class="field-label">CTA</div>
+        <div class="cta-box">➤ "Is reel ko save karo aur apni family mein share karo. Humse milne ke liye link in bio."</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- REEL 3 -->
+  <div class="card" id="r3">
+    <div class="card-header" onclick="toggleCard('r3')">
+      <div class="card-num">3</div>
+      <div class="card-title-wrap">
+        <div><span class="card-type-badge badge-reel">Reel</span></div>
+        <div class="card-title">Your Newborn's First 7 Days — What to Expect</div>
+        <div class="card-topic">Newborn Care &nbsp;·&nbsp; Evergreen</div>
+      </div>
+      <div class="chevron">▾</div>
+    </div>
+    <div class="card-body">
+      <div class="field">
+        <div class="field-label">Hook (first 3 seconds)</div>
+        <div class="hook-box">"Naya baby ghar aaya? Pehle 7 din ka pura guide — ek reel mein!"</div>
+      </div>
+      <div class="field">
+        <div class="field-label">Full Flow Breakdown (60–90 sec)</div>
+        <div class="flow-step"><div class="flow-dot">1</div><div class="flow-text"><strong>0–10s (Hook):</strong> Doctor or nurse holds a baby doll/prop. Warm, welcoming tone. Show "Day 1 to Day 7" text timeline on screen.</div></div>
+        <div class="flow-step"><div class="flow-dot">2</div><div class="flow-text"><strong>10–25s (Day 1–2):</strong> "Pehle 1–2 din baby bahut sota hai — 16–18 ghante. Ye normal hai. Pehla stool kaala hoga (meconium) — ghabrao nahi." Show simple text graphics.</div></div>
+        <div class="flow-step"><div class="flow-dot">3</div><div class="flow-text"><strong>25–45s (Day 3–5):</strong> "Teen se paanch din mein — baby ka weight thoda girta hai, ye bhi normal hai. Breastfeeding regular honi chahiye — 8–12 baar 24 ghante mein. Jaundice check karo — ankhon/skin ka peela hona." Brief, confident delivery.</div></div>
+        <div class="flow-step"><div class="flow-dot">4</div><div class="flow-text"><strong>45–65s (Day 6–7 + Navel Care):</strong> "Chheh-saat din mein umbilical cord area dry rakhna zaroori hai. Pani se door rakhna. Baby ka pehla checkup bhi is hafte karwa lo." Doctor shows how to keep cord clean using a prop.</div></div>
+        <div class="flow-step"><div class="flow-dot">5</div><div class="flow-text"><strong>65–80s (Reassurance + CTA):</strong> "New parents — aap bahut achha kar rahe ho! Koi sawaal ho toh humse zaroor milo." Warm smile close.</div></div>
+      </div>
+      <div class="field">
+        <div class="field-label">Key Points Covered</div>
+        <div class="key-points">
+          <span class="kp-tag">Sleep patterns</span>
+          <span class="kp-tag">Meconium stool</span>
+          <span class="kp-tag">Weight loss is normal</span>
+          <span class="kp-tag">Breastfeeding frequency</span>
+          <span class="kp-tag">Jaundice signs</span>
+          <span class="kp-tag">Cord care</span>
+        </div>
+      </div>
+      <div class="field">
+        <div class="field-label">Caption</div>
+        <div class="caption-box">Pehle 7 din bahut khas hote hain — aur thodi si jankari se aap confident rehte hain 👶✨ Save kar lo new parents! #NewbornCare #FirstWeek #AasthaMedicare #BabyHealth #GurgaonHospital</div>
+      </div>
+      <div class="field">
+        <div class="field-label">CTA</div>
+        <div class="cta-box">➤ "Share with any new parent. Newborn checkup book karne ke liye DM karo."</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- REEL 4 -->
+  <div class="card" id="r4">
+    <div class="card-header" onclick="toggleCard('r4')">
+      <div class="card-num">4</div>
+      <div class="card-title-wrap">
+        <div><span class="card-type-badge badge-reel">Reel</span></div>
+        <div class="card-title">Vaccination Schedule for Babies — Birth to 1 Year Explained Simply</div>
+        <div class="card-topic">Vaccinations &nbsp;·&nbsp; Evergreen + High Search</div>
+      </div>
+      <div class="chevron">▾</div>
+    </div>
+    <div class="card-body">
+      <div class="field">
+        <div class="field-label">Hook (first 3 seconds)</div>
+        <div class="hook-box">"Kab kaun si vaccine lagti hai? Birth se 1 saal tak — pura schedule samjho 2 minutes mein!"</div>
+      </div>
+      <div class="field">
+        <div class="field-label">Full Flow Breakdown (60–90 sec)</div>
+        <div class="flow-step"><div class="flow-dot">1</div><div class="flow-text"><strong>0–8s (Hook):</strong> Doctor holds a small vaccine booklet. Screen text: "Vaccine Schedule — 0 to 12 months."</div></div>
+        <div class="flow-step"><div class="flow-dot">2</div><div class="flow-text"><strong>8–25s (Birth vaccines):</strong> "Janam ke turant baad — BCG (TB se bachao), Hepatitis B pehli dose, aur OPV (polio). Ye hospital mein hi ho jaate hain." Show illustrated badge-style text overlays.</div></div>
+        <div class="flow-step"><div class="flow-dot">3</div><div class="flow-text"><strong>25–45s (6-week & 10-week vaccines):</strong> "Chhah hafte mein — DPT, Hib, Hepatitis B, aur Rotavirus. Das hafte mein — fir se booster doses. Har vaccine ek lifelong shield hai." Use the word "shield" to make it visual and memorable.</div></div>
+        <div class="flow-step"><div class="flow-dot">4</div><div class="flow-text"><strong>45–65s (6-month to 12-month):</strong> "Chhah mahine mein — Influenza (flu) vaccine start karo. Nau mahine mein — Measles (khasra). Barah mahine mein — MMR, Chickenpox, Typhoid." Clear bullet-style voiceover.</div></div>
+        <div class="flow-step"><div class="flow-dot">5</div><div class="flow-text"><strong>65–80s (Why it matters + CTA):</strong> "Vaccine miss hona dangerous ho sakta hai. Ek chhoti si needle — badi bimariyon se suraksha. Vaccine card sambhal ke rakho." Show vaccine booklet on camera.</div></div>
+      </div>
+      <div class="field">
+        <div class="field-label">Key Points Covered</div>
+        <div class="key-points">
+          <span class="kp-tag">Birth vaccines (BCG, HepB, OPV)</span>
+          <span class="kp-tag">6-week boosters</span>
+          <span class="kp-tag">MMR at 12 months</span>
+          <span class="kp-tag">Vaccine card importance</span>
+          <span class="kp-tag">Never skip vaccines</span>
+        </div>
+      </div>
+      <div class="field">
+        <div class="field-label">Caption</div>
+        <div class="caption-box">Ek vaccine, ek suraksha 💉 Apne baby ka vaccination schedule miss mat hone do. #VaccinationSchedule #BabyVaccines #AasthaMedicare #ChildHealth #Gurgaon</div>
+      </div>
+      <div class="field">
+        <div class="field-label">CTA</div>
+        <div class="cta-box">➤ "Save this reel as your vaccine reminder. Vaccination appointment ke liye DM karo."</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- REEL 5 -->
+  <div class="card" id="r5">
+    <div class="card-header" onclick="toggleCard('r5')">
+      <div class="card-num">5</div>
+      <div class="card-title-wrap">
+        <div><span class="card-type-badge badge-reel">Reel</span></div>
+        <div class="card-title">PCOS — Ye Kya Hota Hai aur Iska Kya Ilaj Hai?</div>
+        <div class="card-topic">Women's Health &nbsp;·&nbsp; Trending Topic</div>
+      </div>
+      <div class="chevron">▾</div>
+    </div>
+    <div class="card-body">
+      <div class="field">
+        <div class="field-label">Hook (first 3 seconds)</div>
+        <div class="hook-box">"India mein 1 in 5 women ko PCOS hai — aur zyada tar ko pata bhi nahi. Aaj sab samajhte hain."</div>
+      </div>
+      <div class="field">
+        <div class="field-label">Full Flow Breakdown (60–90 sec)</div>
+        <div class="flow-step"><div class="flow-dot">1</div><div class="flow-text"><strong>0–10s (Hook + stat):</strong> Doctor to camera with "1 in 5" text overlay. Creates immediate relevance for the audience.</div></div>
+        <div class="flow-step"><div class="flow-dot">2</div><div class="flow-text"><strong>10–30s (What is PCOS):</strong> "PCOS mein ovaries mein chhote-chhote cysts hote hain. Periods irregular ho jaate hain. Hormones balance bigad jaata hai." Use simple ovary graphic animation or text slide overlay.</div></div>
+        <div class="flow-step"><div class="flow-dot">3</div><div class="flow-text"><strong>30–50s (Symptoms):</strong> "Symptoms kya hote hain? Irregular periods, face/body par extra baal, acne, weight gain — especially tummy pe, aur kabhi kabhi pregnancy mein problem." List-style text overlay as doctor speaks.</div></div>
+        <div class="flow-step"><div class="flow-dot">4</div><div class="flow-text"><strong>50–70s (Treatment + Lifestyle):</strong> "PCOS ka koi permanent cure nahi — par control ho sakta hai. Kaise? Weight loss (sirf 5–10% bhi help karta hai), exercise, diet change, stress kum karna. Medicines bhi doctor decide karte hain." Empowering, not scary.</div></div>
+        <div class="flow-step"><div class="flow-dot">5</div><div class="flow-text"><strong>70–85s (Conclusion):</strong> "PCOS wali women normal aur healthy life jee sakti hain. Sirf sahi doctor aur lifestyle chahiye." Warm, positive close.</div></div>
+      </div>
+      <div class="field">
+        <div class="field-label">Key Points Covered</div>
+        <div class="key-points">
+          <span class="kp-tag">What is PCOS</span>
+          <span class="kp-tag">Hormonal imbalance</span>
+          <span class="kp-tag">Common symptoms</span>
+          <span class="kp-tag">Lifestyle management</span>
+          <span class="kp-tag">PCOS + fertility</span>
+        </div>
+      </div>
+      <div class="field">
+        <div class="field-label">Caption</div>
+        <div class="caption-box">PCOS diagnose hua? Ghabrana nahi — sahi guidance aur lifestyle se aap bilkul normal reh sakti ho 💪 #PCOS #WomensHealth #AasthaMedicare #HormoneHealth #GurgaonDoctor</div>
+      </div>
+      <div class="field">
+        <div class="field-label">CTA</div>
+        <div class="cta-box">➤ "Tag a friend who needs to know this. Consultation ke liye link in bio."</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- REEL 6 -->
+  <div class="card" id="r6">
+    <div class="card-header" onclick="toggleCard('r6')">
+      <div class="card-num">6</div>
+      <div class="card-title-wrap">
+        <div><span class="card-type-badge badge-reel">Reel</span></div>
+        <div class="card-title">Breastfeeding Myths vs Facts — Ye Sunte Aaye Ho?</div>
+        <div class="card-topic">Newborn & Women's Health &nbsp;·&nbsp; Relatable / Storytelling</div>
+      </div>
+      <div class="chevron">▾</div>
+    </div>
+    <div class="card-body">
+      <div class="field">
+        <div class="field-label">Hook (first 3 seconds)</div>
+        <div class="hook-box">"Breastfeeding ke baare mein jo suna hai — woh sach hai ya jhooth? Aaj pata karte hain!"</div>
+      </div>
+      <div class="field">
+        <div class="field-label">Full Flow Breakdown (60–90 sec)</div>
+        <div class="flow-step"><div class="flow-dot">1</div><div class="flow-text"><strong>0–8s (Hook):</strong> Doctor starts with "Myth ya Fact?" in a quiz-style format. Playful but informative tone. Show "MYTH" and "FACT" stickers as visual overlays.</div></div>
+        <div class="flow-step"><div class="flow-dot">2</div><div class="flow-text"><strong>8–25s (Myth 1 & 2):</strong> "Myth: 'Mera doodh kam hai, formula dena padega.' Fact: Zyada tar moms enough milk produce karti hain — bas sahi latch aur frequency chahiye. Myth: 'Bimaar hone par breastfeed nahi karna chahiye.' Fact: Colds/flu mein breastfeed karo — antibodies baby ko milte hain!"</div></div>
+        <div class="flow-step"><div class="flow-dot">3</div><div class="flow-text"><strong>25–50s (Myth 3 & 4):</strong> "Myth: 'Breastfeeding bahut dard deta hai.' Fact: Shuruaat mein adjustment hoti hai, par sahi technique se dard nahi hona chahiye. Humare paas lactation support hai! Myth: 'Raat ko feed karna zaroori nahi.' Fact: Pehle kuch hafte mein raat ki feeding bahut important hai — supply maintain hoti hai."</div></div>
+        <div class="flow-step"><div class="flow-dot">4</div><div class="flow-text"><strong>50–70s (Key message):</strong> "Breastfeeding ek skill hai — aur ye sikhna padta hai. 6 mahine tak exclusively breastfeed karna recommended hai. Baby bhi seekhta hai, aap bhi seekhti ho." Normalize the learning curve.</div></div>
+        <div class="flow-step"><div class="flow-dot">5</div><div class="flow-text"><strong>70–85s (CTA):</strong> "Breastfeeding mein koi bhi sawaal ho — humse seedha poochho. Hum hain na!" Warm, approachable energy.</div></div>
+      </div>
+      <div class="field">
+        <div class="field-label">Key Points Covered</div>
+        <div class="key-points">
+          <span class="kp-tag">Low milk supply myth</span>
+          <span class="kp-tag">Breastfeeding while sick</span>
+          <span class="kp-tag">Pain is not normal</span>
+          <span class="kp-tag">Night feeding importance</span>
+          <span class="kp-tag">6-month exclusive BF guideline</span>
+        </div>
+      </div>
+      <div class="field">
+        <div class="field-label">Caption</div>
+        <div class="caption-box">Nani-daadi ki baatein sunna zaroori hai — par doctor ki bhi! 😄 Breastfeeding ke sahi facts jaano. #BreastfeedingMyths #NewMom #AasthaMedicare #MomLife #BabyHealth</div>
+      </div>
+      <div class="field">
+        <div class="field-label">CTA</div>
+        <div class="cta-box">➤ "Save this and share with a new mom. Lactation consultation ke liye DM karo."</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- REEL 7 -->
+  <div class="card" id="r7">
+    <div class="card-header" onclick="toggleCard('r7')">
+      <div class="card-num">7</div>
+      <div class="card-title-wrap">
+        <div><span class="card-type-badge badge-reel">Reel</span></div>
+        <div class="card-title">Anemia in Women — Why Indian Women Are Most at Risk</div>
+        <div class="card-topic">Women's Health &nbsp;·&nbsp; Awareness</div>
+      </div>
+      <div class="chevron">▾</div>
+    </div>
+    <div class="card-body">
+      <div class="field">
+        <div class="field-label">Hook (first 3 seconds)</div>
+        <div class="hook-box">"Hamesha thaka hua feel hota hai? Ye anemia ho sakta hai — aur India mein 50% women ko hai!"</div>
+      </div>
+      <div class="field">
+        <div class="field-label">Full Flow Breakdown (60–90 sec)</div>
+        <div class="flow-step"><div class="flow-dot">1</div><div class="flow-text"><strong>0–10s (Hook + stat):</strong> Doctor on camera. "50%" text prominently displayed. Immediately relatable for the target audience.</div></div>
+        <div class="flow-step"><div class="flow-dot">2</div><div class="flow-text"><strong>10–30s (What is Anemia):</strong> "Anemia mein blood mein iron ya hemoglobin kam ho jaata hai. Iron hamare red blood cells banata hai — jo oxygen carry karte hain. Kam iron = thakaan, chakkar, saansi phoolna." Keep it conversational.</div></div>
+        <div class="flow-step"><div class="flow-dot">3</div><div class="flow-text"><strong>30–50s (Symptoms + Why Women Are More at Risk):</strong> "Symptoms: thakaan, pale skin, aankhon ka white part paheela, nakhoon kaale, concentration nahi. Periods ki wajah se iron loss hota hai — isliye women zyada vulnerable hoti hain."</div></div>
+        <div class="flow-step"><div class="flow-dot">4</div><div class="flow-text"><strong>50–70s (Diet Tips):</strong> "Iron-rich foods khao: paalak, chana, rajma, khajoor, anaar, eggs, chicken liver. Vitamin C ke saath khao (nimbu dalo) — absorption badh jaata hai. Doodh aur chai iron absorb hone nahi deti — khaane ke 1 ghante baad lo."</div></div>
+        <div class="flow-step"><div class="flow-dot">5</div><div class="flow-text"><strong>70–85s (Testing + CTA):</strong> "Ek simple CBC blood test se pata chalta hai. Agar symptoms hain — test zaroor karwao." Direct, actionable close.</div></div>
+      </div>
+      <div class="field">
+        <div class="field-label">Key Points Covered</div>
+        <div class="key-points">
+          <span class="kp-tag">What is anemia</span>
+          <span class="kp-tag">Why women are at risk</span>
+          <span class="kp-tag">Key symptoms</span>
+          <span class="kp-tag">Iron-rich Indian foods</span>
+          <span class="kp-tag">CBC blood test</span>
+        </div>
+      </div>
+      <div class="field">
+        <div class="field-label">Caption</div>
+        <div class="caption-box">Thakaan ko "normal" mat maano — check karwao! Anemia treat ho sakta hai 🩸 #Anemia #WomensHealth #IronDeficiency #AasthaMedicare #HealthyWomen</div>
+      </div>
+      <div class="field">
+        <div class="field-label">CTA</div>
+        <div class="cta-box">➤ "Blood test ke liye aaj appointment lo. Link in bio."</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- REEL 8 -->
+  <div class="card" id="r8">
+    <div class="card-header" onclick="toggleCard('r8')">
+      <div class="card-num">8</div>
+      <div class="card-title-wrap">
+        <div><span class="card-type-badge badge-reel">Reel</span></div>
+        <div class="card-title">Postpartum Depression — Jo Koi Baat Nahi Karta</div>
+        <div class="card-topic">Mental Health + Women &nbsp;·&nbsp; Trending + Sensitive</div>
+      </div>
+      <div class="chevron">▾</div>
+    </div>
+    <div class="card-body">
+      <div class="field">
+        <div class="field-label">Hook (first 3 seconds)</div>
+        <div class="hook-box">"Baby aaya aur aap khush nahi feel kar rahi? Ye aapki galti nahi — ye ek medical condition hai."</div>
+      </div>
+      <div class="field">
+        <div class="field-label">Full Flow Breakdown (60–90 sec)</div>
+        <div class="flow-step"><div class="flow-dot">1</div><div class="flow-text"><strong>0–10s (Empathy-first hook):</strong> Soft, warm lighting. Doctor speaks directly and gently. "Koi judge nahi karega — aaj baat karte hain." Creates psychological safety immediately.</div></div>
+        <div class="flow-step"><div class="flow-dot">2</div><div class="flow-text"><strong>10–30s (What is PPD):</strong> "Delivery ke baad hormones bahut tezi se change hote hain. Kuch moms ko 'baby blues' hote hain — 2 hafte mein theek ho jaata hai. Par kuch moms ko Postpartum Depression hota hai — ye zyada time tak rehta hai aur medical help chahiye."</div></div>
+        <div class="flow-step"><div class="flow-dot">3</div><div class="flow-text"><strong>30–50s (Symptoms):</strong> "Signs kya hain: akela feel karna, baby se connected na feel karna, bahut rona, neend na aana (baby ke sone ke baad bhi), anxiety, ya numb feel karna. Ye weakness nahi hai — ye ek illness hai." Very important to destigmatize.</div></div>
+        <div class="flow-step"><div class="flow-dot">4</div><div class="flow-text"><strong>50–70s (What to Do):</strong> "Kya karo: apne partner ya family ko batao. Doctor se openly baat karo — treatment mein counseling aur medicine dono help karte hain. Akele mat jhelna." Calm, supportive tone.</div></div>
+        <div class="flow-step"><div class="flow-dot">5</div><div class="flow-text"><strong>70–85s (Message to family):</strong> "Family ke log — nai maa ko judge mat karo. Poochho: 'Tum kaise ho? Kya chahiye tumhe?' Ye chhota sawaal bahut bada farak dalta hai." End with warmth.</div></div>
+      </div>
+      <div class="field">
+        <div class="field-label">Key Points Covered</div>
+        <div class="key-points">
+          <span class="kp-tag">Baby blues vs PPD</span>
+          <span class="kp-tag">Hormonal changes post-delivery</span>
+          <span class="kp-tag">PPD symptoms</span>
+          <span class="kp-tag">Seeking help</span>
+          <span class="kp-tag">Role of family support</span>
+        </div>
+      </div>
+      <div class="field">
+        <div class="field-label">Caption</div>
+        <div class="caption-box">Nai maa hona duniya ka sabse mushkil kaam hai — aur madad maangna strength hai, weakness nahi 💙 #PostpartumDepression #MentalHealth #NewMom #AasthaMedicare #BreakTheStigma</div>
+      </div>
+      <div class="field">
+        <div class="field-label">CTA</div>
+        <div class="cta-box">➤ "Share karo — kisi ki zindagi badal sakti hai. Humse baat karne ke liye DM karo."</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- REEL 9 -->
+  <div class="card" id="r9">
+    <div class="card-header" onclick="toggleCard('r9')">
+      <div class="card-num">9</div>
+      <div class="card-title-wrap">
+        <div><span class="card-type-badge badge-reel">Reel</span></div>
+        <div class="card-title">High BP During Pregnancy (Pre-eclampsia) — Pehchanein aur Bachein</div>
+        <div class="card-topic">Pregnancy Safety &nbsp;·&nbsp; High Search Volume</div>
+      </div>
+      <div class="chevron">▾</div>
+    </div>
+    <div class="card-body">
+      <div class="field">
+        <div class="field-label">Hook (first 3 seconds)</div>
+        <div class="hook-box">"Pregnancy mein BP badh gaya? Ye ignore karna dangerous ho sakta hai — aaj ye zaroori jankari lelo."</div>
+      </div>
+      <div class="field">
+        <div class="field-label">Full Flow Breakdown (60–90 sec)</div>
+        <div class="flow-step"><div class="flow-dot">1</div><div class="flow-text"><strong>0–10s (Hook):</strong> Doctor with BP machine prop. Creates visual context instantly.</div></div>
+        <div class="flow-step"><div class="flow-dot">2</div><div class="flow-text"><strong>10–30s (What is Pre-eclampsia):</strong> "Pre-eclampsia ek serious condition hai jisme pregnancy ke 20 hafte baad BP bahut badh jaata hai. Ye mom aur baby dono ke liye risky hai — isliye early detection bahut zaroori hai."</div></div>
+        <div class="flow-step"><div class="flow-dot">3</div><div class="flow-text"><strong>30–50s (Symptoms):</strong> "Symptoms: BP 140/90 se zyada, haath-pair ka sujna (especially face), aankhon ke aage dhundla dikhna, tez sir dard, urine mein protein, bahut jaldi weight badhna (paani se). In mein se kuch bhi ho — hospital aao."</div></div>
+        <div class="flow-step"><div class="flow-dot">4</div><div class="flow-text"><strong>50–70s (Who is at risk + Prevention):</strong> "Risk factors: pehli pregnancy, twins, diabetes, obesity, family history. Kya karo: regular antenatal checkups miss mat karo, namak kum karo, stress manage karo, BP regularly check karo."</div></div>
+        <div class="flow-step"><div class="flow-dot">5</div><div class="flow-text"><strong>70–85s (Conclusion):</strong> "Regular checkup = safe pregnancy. Hamare yahan antenatal care mein ye sab included hai." Close with clinic nameplate or setting shot.</div></div>
+      </div>
+      <div class="field">
+        <div class="field-label">Key Points Covered</div>
+        <div class="key-points">
+          <span class="kp-tag">Pre-eclampsia definition</span>
+          <span class="kp-tag">Warning symptoms</span>
+          <span class="kp-tag">Risk factors</span>
+          <span class="kp-tag">Regular BP monitoring</span>
+          <span class="kp-tag">Antenatal checkup importance</span>
+        </div>
+      </div>
+      <div class="field">
+        <div class="field-label">Caption</div>
+        <div class="caption-box">Pregnancy checkups ignore mat karo — BP ka monitoring aapko aur baby ko safe rakhta hai. 💗 #Preeclampsia #HighBP #SafePregnancy #AasthaMedicare #MomHealth</div>
+      </div>
+      <div class="field">
+        <div class="field-label">CTA</div>
+        <div class="cta-box">➤ "Antenatal checkup book karo — link in bio. Save this for every pregnant woman you know."</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- REEL 10 -->
+  <div class="card" id="r10">
+    <div class="card-header" onclick="toggleCard('r10')">
+      <div class="card-num">10</div>
+      <div class="card-title-wrap">
+        <div><span class="card-type-badge badge-reel">Reel</span></div>
+        <div class="card-title">Thyroid aur Women's Health — India Mein Bahut Common, Par Ignored</div>
+        <div class="card-topic">Women's Health &nbsp;·&nbsp; Evergreen + Trending</div>
+      </div>
+      <div class="chevron">▾</div>
+    </div>
+    <div class="card-body">
+      <div class="field">
+        <div class="field-label">Hook (first 3 seconds)</div>
+        <div class="hook-box">"Weight badh raha hai, thakan hai, periods irregular hain — aur test nahi karwaya? Thyroid check karo!"</div>
+      </div>
+      <div class="field">
+        <div class="field-label">Full Flow Breakdown (60–90 sec)</div>
+        <div class="flow-step"><div class="flow-dot">1</div><div class="flow-text"><strong>0–10s (Hook + relatable pain points):</strong> List common complaints women share. Creates instant recognition. "Agar ye aap hain — ye reel aapke liye hai."</div></div>
+        <div class="flow-step"><div class="flow-dot">2</div><div class="flow-text"><strong>10–30s (What is Thyroid):</strong> "Thyroid ek chhoti si gland hai gale mein — jo hormones produce karti hai. Ye metabolism, energy, mood, aur periods sab control karti hai." Show a simple neck/thyroid graphic overlay.</div></div>
+        <div class="flow-step"><div class="flow-dot">3</div><div class="flow-text"><strong>30–50s (Hypothyroid vs Hyperthyroid):</strong> "Hypothyroid (underactive): thakaan, weight gain, thandi lagti hai, constipation. Hyperthyroid (overactive): weight loss, dil ki dhadkan tez, sweating, anxiety. Dono different — par TSH blood test se pata chalta hai."</div></div>
+        <div class="flow-step"><div class="flow-dot">4</div><div class="flow-text"><strong>50–70s (Women + Pregnancy connection):</strong> "Pregnant women mein thyroid check karna especially zaroori hai — kyunki untreated thyroid baby ki growth affect kar sakta hai." This creates high relevance for the core audience.</div></div>
+        <div class="flow-step"><div class="flow-dot">5</div><div class="flow-text"><strong>70–85s (Treatment + CTA):</strong> "Good news — thyroid easily manageable hai. Daily ek tablet aur regular monitoring se bilkul normal life. TSH test karwao — sirf ek blood test!" Empowering finish.</div></div>
+      </div>
+      <div class="field">
+        <div class="field-label">Key Points Covered</div>
+        <div class="key-points">
+          <span class="kp-tag">What does thyroid do</span>
+          <span class="kp-tag">Hypothyroid symptoms</span>
+          <span class="kp-tag">Hyperthyroid symptoms</span>
+          <span class="kp-tag">TSH blood test</span>
+          <span class="kp-tag">Thyroid in pregnancy</span>
+          <span class="kp-tag">Treatment is simple</span>
+        </div>
+      </div>
+      <div class="field">
+        <div class="field-label">Caption</div>
+        <div class="caption-box">Thyroid problem ka matlab ye nahi ki aap sick hain — bas balance karna hai! 🦋 #ThyroidHealth #WomensHealth #TSHTest #AasthaMedicare #HormoneBalance</div>
+      </div>
+      <div class="field">
+        <div class="field-label">CTA</div>
+        <div class="cta-box">➤ "Tag karo jo ye symptoms feel karti hain. TSH test ke liye DM karo."</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- POSTS SECTION -->
+<div id="posts" class="section">
+  <div class="section-label">Instagram Post Ideas — Carousel & Static</div>
+
+  <!-- POST 1 -->
+  <div class="card" id="p1">
+    <div class="card-header" onclick="toggleCard('p1')">
+      <div class="card-num">1</div>
+      <div class="card-title-wrap">
+        <div><span class="card-type-badge badge-carousel">Carousel</span></div>
+        <div class="card-title">Your Pregnancy Trimester Guide — Month by Month</div>
+        <div class="card-topic">Pregnancy Care &nbsp;·&nbsp; Evergreen</div>
+      </div>
+      <div class="chevron">▾</div>
+    </div>
+    <div class="card-body">
+      <div class="field">
+        <div class="field-label">Slide-by-Slide Content</div>
+        <div class="slide-block"><div class="slide-num">Slide 1 — Cover</div><div class="slide-content">Title: "Pregnancy Ka Pura Safar — Trimester by Trimester 🌸" with clinic branding. Soft floral/pastel background.</div></div>
+        <div class="slide-block"><div class="slide-num">Slide 2 — First Trimester (Month 1–3)</div><div class="slide-content">What's happening: Baby ka heart beat start. Symptoms: morning sickness, fatigue, breast tenderness. Do: Folic acid shuru karo, avoid alcohol/smoking, first checkup lo.</div></div>
+        <div class="slide-block"><div class="slide-num">Slide 3 — Second Trimester (Month 4–6)</div><div class="slide-content">The "golden trimester." Symptoms ease. Baby kicks start. Anatomy scan (20-week ultrasound). Yoga/walking start kar sakte ho. Track baby movements.</div></div>
+        <div class="slide-block"><div class="slide-num">Slide 4 — Third Trimester (Month 7–9)</div><div class="slide-content">Baby grows fast. Back pain, breathlessness common. Hospital bag taiyaar karo. Birth plan doctor se discuss karo. Signs of labour jaano.</div></div>
+        <div class="slide-block"><div class="slide-num">Slide 5 — Key Tests Per Trimester</div><div class="slide-content">T1: Blood tests, NT scan. T2: Anatomy scan, glucose test. T3: Group B strep test, NST. Easy table format.</div></div>
+        <div class="slide-block"><div class="slide-num">Slide 6 — CTA</div><div class="slide-content">"Aastha Medicare mein aapka antenatal journey safe haath mein hai. Appointment lo aaj." Clinic logo + contact.</div></div>
+      </div>
+      <div class="field">
+        <div class="field-label">Caption</div>
+        <div class="caption-box">9 mahine ka ye safar — ek ek step mein aapke saath hain hum 💛 Save karo reference ke liye! #PregnancyGuide #TrimesterByTrimester #AasthaMedicare #MomsToBe</div>
+      </div>
+      <div class="field">
+        <div class="field-label">CTA</div>
+        <div class="cta-box">➤ "Save this post aur share with expecting moms. Appointment: link in bio."</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- POST 2 -->
+  <div class="card" id="p2">
+    <div class="card-header" onclick="toggleCard('p2')">
+      <div class="card-num">2</div>
+      <div class="card-title-wrap">
+        <div><span class="card-type-badge badge-carousel">Carousel</span></div>
+        <div class="card-title">Newborn Checklist — Ghar Lane Se Pehle Kya Taiyaar Rakhein?</div>
+        <div class="card-topic">Newborn Care &nbsp;·&nbsp; High Save Rate</div>
+      </div>
+      <div class="chevron">▾</div>
+    </div>
+    <div class="card-body">
+      <div class="field">
+        <div class="field-label">Slide-by-Slide Content</div>
+        <div class="slide-block"><div class="slide-num">Slide 1 — Cover</div><div class="slide-content">"Baby Ghar Aane Wala Hai! ✅ Ye Checklist Banao." Cute baby illustration.</div></div>
+        <div class="slide-block"><div class="slide-num">Slide 2 — Baby Essentials</div><div class="slide-content">Onesies (5–7), soft blankets, diapers (newborn size), wet wipes, baby soap, soft towel, mittens & socks.</div></div>
+        <div class="slide-block"><div class="slide-num">Slide 3 — Feeding Supplies</div><div class="slide-content">Nursing bra, breast pads, nipple cream (lanolin), feeding pillow. If formula: bottles, sterilizer. No need to buy before birth — wait and see if breastfeeding works.</div></div>
+        <div class="slide-block"><div class="slide-num">Slide 4 — Safety Items</div><div class="slide-content">Baby thermometer, nasal aspirator, baby nail filer, mosquito net, room thermometer. Keep baby's sleep space safe: firm mattress, no pillows.</div></div>
+        <div class="slide-block"><div class="slide-num">Slide 5 — Documents & Health</div><div class="slide-content">Baby's birth certificate, vaccination card ready, pediatrician ka number, follow-up appointments ka schedule. First checkup: 3–5 days after birth.</div></div>
+        <div class="slide-block"><div class="slide-num">Slide 6 — CTA</div><div class="slide-content">"Aastha Medicare mein neonatal care ki poori suvidha available hai. Contact us." Clinic logo.</div></div>
+      </div>
+      <div class="field">
+        <div class="field-label">Caption</div>
+        <div class="caption-box">Ready hona sabse bada gift hai apne baby ko! 👶 Save karo ye checklist aur share with expecting parents. #NewbornChecklist #BabyPrep #AasthaMedicare #NewParents</div>
+      </div>
+      <div class="field">
+        <div class="field-label">CTA</div>
+        <div class="cta-box">➤ "Save this. Tag a mom-to-be who needs this!"</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- POST 3 -->
+  <div class="card" id="p3">
+    <div class="card-header" onclick="toggleCard('p3')">
+      <div class="card-num">3</div>
+      <div class="card-title-wrap">
+        <div><span class="card-type-badge badge-static">Static Post</span></div>
+        <div class="card-title">World Breastfeeding Week (Aug 1–7) — Awareness Post</div>
+        <div class="card-topic">Awareness Day &nbsp;·&nbsp; Trending</div>
+      </div>
+      <div class="chevron">▾</div>
+    </div>
+    <div class="card-body">
+      <div class="field">
+        <div class="field-label">Post Content</div>
+        <div class="slide-block"><div class="slide-num">Single Image</div><div class="slide-content">Warm, minimalist design with headline: "Breastfeeding — Baby Ka Pehla Suraksha Kavach 🤱" Key facts in clean text: Colostrum = baby's first vaccine. WHO recommends 6 months exclusive BF. Reduces baby's infection risk by 60%. Helps mom recover faster. Reduces breast cancer risk in moms. Aastha Medicare branding at bottom.</div></div>
+      </div>
+      <div class="field">
+        <div class="field-label">Caption</div>
+        <div class="caption-box">Is World Breastfeeding Week, hum celebrate karte hain har ek mom ko jo is journey se guzri hai — easy ho ya mushkil. Aap amazing ho 💙 #WorldBreastfeedingWeek #WBW2025 #AasthaMedicare #BreastfeedingMom</div>
+      </div>
+      <div class="field">
+        <div class="field-label">CTA</div>
+        <div class="cta-box">➤ "Lactation support ke liye DM karo. Hum yahan hain."</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- POST 4 -->
+  <div class="card" id="p4">
+    <div class="card-header" onclick="toggleCard('p4')">
+      <div class="card-num">4</div>
+      <div class="card-title-wrap">
+        <div><span class="card-type-badge badge-carousel">Carousel</span></div>
+        <div class="card-title">10 Foods to Eat During Pregnancy — Indian Kitchen Se</div>
+        <div class="card-topic">Pregnancy Nutrition &nbsp;·&nbsp; High Save + Share</div>
+      </div>
+      <div class="chevron">▾</div>
+    </div>
+    <div class="card-body">
+      <div class="field">
+        <div class="field-label">Slide-by-Slide Content</div>
+        <div class="slide-block"><div class="slide-num">Slide 1 — Cover</div><div class="slide-content">"Garbhawati ke liye 10 Best Indian Foods 🥗" Colorful food illustration or flat-lay photo style.</div></div>
+        <div class="slide-block"><div class="slide-num">Slides 2–6 — Food items 1–5</div><div class="slide-content">Daal (protein + iron). Dahi (calcium + probiotics). Paalak (iron + folate). Akhrot/Badam (omega-3, brain dev). Ande (complete protein + choline). One food per slide with benefit and fun fact.</div></div>
+        <div class="slide-block"><div class="slide-num">Slides 7–11 — Food items 6–10</div><div class="slide-content">Shakarkand / Sweet potato (Vitamin A). Anaar (iron + antioxidants). Doodh (calcium, Vit D). Avocado (healthy fat + folate). Khajoor / Dates (natural energy + may ease labour). One per slide.</div></div>
+        <div class="slide-block"><div class="slide-num">Slide 12 — Avoid List</div><div class="slide-content">Raw meat, unpasteurized cheese, excess caffeine, papaya, pineapple in excess, alcohol. Keep it short and factual.</div></div>
+        <div class="slide-block"><div class="slide-num">Slide 13 — CTA</div><div class="slide-content">Aastha Medicare branding. "Diet consultation ke liye appointment lo."</div></div>
+      </div>
+      <div class="field">
+        <div class="field-label">Caption</div>
+        <div class="caption-box">Aapki rasoi mein hi hai baby ka nutrition! 🍽️ Save karo ye list aur khao ghar ka bana, sar uthake. #PregnancyDiet #IndianFood #MomNutrition #AasthaMedicare #HealthyPregnancy</div>
+      </div>
+      <div class="field">
+        <div class="field-label">CTA</div>
+        <div class="cta-box">➤ "Save this post. Share with a pregnant friend."</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- POST 5 -->
+  <div class="card" id="p5">
+    <div class="card-header" onclick="toggleCard('p5')">
+      <div class="card-num">5</div>
+      <div class="card-title-wrap">
+        <div><span class="card-type-badge badge-carousel">Carousel</span></div>
+        <div class="card-title">FAQ — Vaccination: Parents Ke Common Sawaal</div>
+        <div class="card-topic">Vaccinations &nbsp;·&nbsp; FAQ Format</div>
+      </div>
+      <div class="chevron">▾</div>
+    </div>
+    <div class="card-body">
+      <div class="field">
+        <div class="field-label">Slide-by-Slide Content</div>
+        <div class="slide-block"><div class="slide-num">Slide 1 — Cover</div><div class="slide-content">"Vaccine ke baare mein aapke sawaal — hamare jawab! 💉" Friendly Q&A format design.</div></div>
+        <div class="slide-block"><div class="slide-num">Slide 2</div><div class="slide-content">Q: "Vaccine lagane ke baad baby ko bukhar aaya — kya karo?" A: Ye normal immune response hai. Paracetamol doctor se poochh ke de sakte ho. Zyada tar 1–2 din mein theek ho jaata hai.</div></div>
+        <div class="slide-block"><div class="slide-num">Slide 3</div><div class="slide-content">Q: "Ek vaccine choot gayi — ab kya?" A: Doctor se milkar catch-up schedule banao. Kabhi bhi late nahi hota.</div></div>
+        <div class="slide-block"><div class="slide-num">Slide 4</div><div class="slide-content">Q: "Vaccine safe hai? Side effects?" A: Haan, safe hain. Thodi redness/swelling/fever common hai. Serious side effects bahut rare hain — benefits risks se kaafi zyada hain.</div></div>
+        <div class="slide-block"><div class="slide-num">Slide 5</div><div class="slide-content">Q: "Sardi-khansi mein vaccine de sakte hain?" A: Minor cold mein dena OK hai. Tez bukhar ho toh thoda wait karo — doctor decide karenge.</div></div>
+        <div class="slide-block"><div class="slide-num">Slide 6 — CTA</div><div class="slide-content">"Aur sawaal hain? Hamare paas aao. Vaccination schedule ke liye appointment lo."</div></div>
+      </div>
+      <div class="field">
+        <div class="field-label">Caption</div>
+        <div class="caption-box">Vaccine ke baare mein doubt hai? Hum hain na! Swipe karo aur sawaalon ke jawab pao 💙 #VaccineFAQ #ChildVaccination #AasthaMedicare #ParentingIndia #BabyHealth</div>
+      </div>
+      <div class="field">
+        <div class="field-label">CTA</div>
+        <div class="cta-box">➤ "Apna sawaal comments mein puchho. Vaccination ke liye DM karo."</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- POST 6 -->
+  <div class="card" id="p6">
+    <div class="card-header" onclick="toggleCard('p6')">
+      <div class="card-num">6</div>
+      <div class="card-title-wrap">
+        <div><span class="card-type-badge badge-static">Static Post</span></div>
+        <div class="card-title">World Health Day (April 7) — "My Health, My Right"</div>
+        <div class="card-topic">Awareness Day &nbsp;·&nbsp; Trending</div>
+      </div>
+      <div class="chevron">▾</div>
+    </div>
+    <div class="card-body">
+      <div class="field">
+        <div class="field-label">Post Content</div>
+        <div class="slide-block"><div class="slide-num">Single Impact Graphic</div><div class="slide-content">Bold headline: "Sehat aapka haq hai — Aaj apna khayal rakhna shuru karo." 3 simple wellness reminders: Annual health checkup lo. Doctor se honest rehna. Apni family ki sehat bhi check karo. Aastha Medicare branding, warm green/white color palette.</div></div>
+      </div>
+      <div class="field">
+        <div class="field-label">Caption</div>
+        <div class="caption-box">World Health Day par ek vaada khud se — apni sehat ko priority dunga/dungi 💚 Aaj appointment lo. #WorldHealthDay #AasthaMedicare #HealthForAll #PreventiveHealth #Gurgaon</div>
+      </div>
+      <div class="field">
+        <div class="field-label">CTA</div>
+        <div class="cta-box">➤ "Annual health checkup ke liye aaj DM karo."</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- POST 7 -->
+  <div class="card" id="p7">
+    <div class="card-header" onclick="toggleCard('p7')">
+      <div class="card-num">7</div>
+      <div class="card-title-wrap">
+        <div><span class="card-type-badge badge-carousel">Carousel</span></div>
+        <div class="card-title">Period Problems — Normal Kya Hai, Doctor Ke Paas Kab Jaayein?</div>
+        <div class="card-topic">Women's Health &nbsp;·&nbsp; High Engagement</div>
+      </div>
+      <div class="chevron">▾</div>
+    </div>
+    <div class="card-body">
+      <div class="field">
+        <div class="field-label">Slide-by-Slide Content</div>
+        <div class="slide-block"><div class="slide-num">Slide 1 — Cover</div><div class="slide-content">"Periods — Kya Normal Hai? 🔴 Aaj Khulke Baat Karte Hain." Destigmatizing, confident tone.</div></div>
+        <div class="slide-block"><div class="slide-num">Slide 2 — What's Normal</div><div class="slide-content">Cycle: 21–35 days. Duration: 3–7 days. Mild cramps: normal. PMS (mood swings, bloating): normal. Light-to-moderate flow: normal.</div></div>
+        <div class="slide-block"><div class="slide-num">Slide 3 — Red Flags #1</div><div class="slide-content">Doctor ke paas jao agar: Periods 3+ months se band ho gayein. Cycle 21 din se kam ya 35 din se zyada ho. Bahut zyada dard jo normal kaam rok de.</div></div>
+        <div class="slide-block"><div class="slide-num">Slide 4 — Red Flags #2</div><div class="slide-content">Bahut zyada bleeding (ek ghante mein ek pad bhar jaaye). Periods ke beech mein bhi spotting ho. Periods ke baad bhi unusual discharge ho.</div></div>
+        <div class="slide-block"><div class="slide-num">Slide 5 — Common Causes</div><div class="slide-content">PCOS, thyroid, stress, rapid weight change, fibroids. Ye sab treatable hain — sirf diagnose hona zaroori hai.</div></div>
+        <div class="slide-block"><div class="slide-num">Slide 6 — CTA</div><div class="slide-content">"Period problems normal nahi maano — Aastha Medicare mein aao. Safe, judgment-free space."</div></div>
+      </div>
+      <div class="field">
+        <div class="field-label">Caption</div>
+        <div class="caption-box">Periods ke baare mein baat karna zaroori hai — tabhi sahi help mil sakti hai 🔴 Save karo aur apni girlfriends ko share karo. #PeriodHealth #WomensHealth #AasthaMedicare #MenstrualHealth</div>
+      </div>
+      <div class="field">
+        <div class="field-label">CTA</div>
+        <div class="cta-box">➤ "Gynecology consultation ke liye DM karo. Judgment-free zone."</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- POST 8 -->
+  <div class="card" id="p8">
+    <div class="card-header" onclick="toggleCard('p8')">
+      <div class="card-num">8</div>
+      <div class="card-title-wrap">
+        <div><span class="card-type-badge badge-static">Static Post</span></div>
+        <div class="card-title">Meet the Doctor — Dr. Anu Siidana Introduction Post</div>
+        <div class="card-topic">Brand Trust &nbsp;·&nbsp; Evergreen</div>
+      </div>
+      <div class="chevron">▾</div>
+    </div>
+    <div class="card-body">
+      <div class="field">
+        <div class="field-label">Post Content</div>
+        <div class="slide-block"><div class="slide-num">Single Professional Photo + Text Overlay</div><div class="slide-content">Professional photo of Dr. Anu Siidana. Text: Name, qualification, specialization. 2–3 line personal quote: "Main chahti hoon ki har maa aur bachcha safe aur healthy ho — aur is safar mein main aapke saath hoon." Clinic name, location, contact. Warm, approachable design — not corporate.</div></div>
+      </div>
+      <div class="field">
+        <div class="field-label">Caption</div>
+        <div class="caption-box">Aastha Medicare mein aapka swagat hai! 🏥 Dr. Anu Siidana ke saath aapka aur aapke bachche ka khayal safe haath mein hai. Milne aaiye. #DrAnuSiidana #AasthaMedicare #Gurgaon #WomensHealth #TrustYourDoctor</div>
+      </div>
+      <div class="field">
+        <div class="field-label">CTA</div>
+        <div class="cta-box">➤ "Appointment ke liye DM karo ya link in bio. Hum aapka intezaar kar rahe hain."</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- POST 9 -->
+  <div class="card" id="p9">
+    <div class="card-header" onclick="toggleCard('p9')">
+      <div class="card-num">9</div>
+      <div class="card-title-wrap">
+        <div><span class="card-type-badge badge-carousel">Carousel</span></div>
+        <div class="card-title">5 Preventive Health Tests Every Woman Over 30 Should Get</div>
+        <div class="card-topic">Preventive Care &nbsp;·&nbsp; High Save Rate</div>
+      </div>
+      <div class="chevron">▾</div>
+    </div>
+    <div class="card-body">
+      <div class="field">
+        <div class="field-label">Slide-by-Slide Content</div>
+        <div class="slide-block"><div class="slide-num">Slide 1 — Cover</div><div class="slide-content">"30 ke baad ye 5 tests zaroor karwaiye 👩‍⚕️" Clean, confident design.</div></div>
+        <div class="slide-block"><div class="slide-num">Slide 2 — Pap Smear</div><div class="slide-content">Cervical cancer detect karta hai. Har 3 saal mein 1 baar. Dard nahi hota — 5 minute ki procedure. Early detection = 90%+ survival rate.</div></div>
+        <div class="slide-block"><div class="slide-num">Slide 3 — Thyroid (TSH Test)</div><div class="slide-content">Thyroid disorders women mein common. TSH blood test — simple aur affordable. Symptoms na bhi ho tab bhi karwao. Har saal ek baar recommended.</div></div>
+        <div class="slide-block"><div class="slide-num">Slide 4 — Blood Pressure + Blood Sugar</div><div class="slide-content">BP: Har 6 mahine mein check karo. Sugar (HbA1c): Prediabetes silently develop hoti hai. Dono lifestyle se control ho sakti hain — agar jaldi pata chale.</div></div>
+        <div class="slide-block"><div class="slide-num">Slide 5 — Bone Density + Eye Check</div><div class="slide-content">Bone density: 40+ ke baad osteoporosis risk. Calcium aur Vit D test bhi karo. Eye check: Annually — diabetes/BP se aankhein affect hoti hain.</div></div>
+        <div class="slide-block"><div class="slide-num">Slide 6 — CTA</div><div class="slide-content">"Annual health checkup package — Aastha Medicare mein available hai. Contact us." Clinic branding.</div></div>
+      </div>
+      <div class="field">
+        <div class="field-label">Caption</div>
+        <div class="caption-box">Prevention is better than cure — aur ye tests aapki zindagi badal sakte hain 💪 Save karo aur apni maa, didi ko share karo. #WomensHealth #PreventiveCare #HealthCheckup #AasthaMedicare #HealthyWomen</div>
+      </div>
+      <div class="field">
+        <div class="field-label">CTA</div>
+        <div class="cta-box">➤ "Health checkup ke liye appointment book karo — link in bio."</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- POST 10 -->
+  <div class="card" id="p10">
+    <div class="card-header" onclick="toggleCard('p10')">
+      <div class="card-num">10</div>
+      <div class="card-title-wrap">
+        <div><span class="card-type-badge badge-carousel">Carousel</span></div>
+        <div class="card-title">Baby Milestone Chart — 0 to 12 Months</div>
+        <div class="card-topic">Child Development &nbsp;·&nbsp; High Save + Share</div>
+      </div>
+      <div class="chevron">▾</div>
+    </div>
+    <div class="card-body">
+      <div class="field">
+        <div class="field-label">Slide-by-Slide Content</div>
+        <div class="slide-block"><div class="slide-num">Slide 1 — Cover</div><div class="slide-content">"Aapka Baby Kya Seekh Raha Hai? 👶 0–12 Mahine Ka Milestone Guide" Colorful, playful design.</div></div>
+        <div class="slide-block"><div class="slide-num">Slide 2 — 0–3 Months</div><div class="slide-content">Smiling (social smile at 6 weeks). Tracking faces with eyes. Lifting head briefly. Cooing sounds. Reacts to sounds.</div></div>
+        <div class="slide-block"><div class="slide-num">Slide 3 — 3–6 Months</div><div class="slide-content">Head control strong. Rolls over (front to back). Reaches for objects. Laughs aloud! Babbling starts. Recognizes parents' faces.</div></div>
+        <div class="slide-block"><div class="slide-num">Slide 4 — 6–9 Months</div><div class="slide-content">Sits without support. Transfers objects hand to hand. Says "mama/dada" (not specific). Stranger anxiety starts. Solid foods begin.</div></div>
+        <div class="slide-block"><div class="slide-num">Slide 5 — 9–12 Months</div><div class="slide-content">Crawls or pulls to stand. Pincer grasp (picks small things). Waves bye-bye. Says 1–2 real words. Follows simple instructions.</div></div>
+        <div class="slide-block"><div class="slide-num">Slide 6 — When to Consult</div><div class="slide-content">If baby isn't: smiling by 3 months, babbling by 6 months, sitting by 9 months, or says no words by 12 months — consult your pediatrician. Every baby is different, but milestones matter.</div></div>
+        <div class="slide-block"><div class="slide-num">Slide 7 — CTA</div><div class="slide-content">Aastha Medicare — Pediatric care with love. Book your well-baby checkup today.</div></div>
+      </div>
+      <div class="field">
+        <div class="field-label">Caption</div>
+        <div class="caption-box">Har milestone — ek naya jashan! 🎉 Ye chart save karo aur apne baby ka safar track karo. #BabyMilestones #ChildDevelopment #AasthaMedicare #NewParents #0to12Months</div>
+      </div>
+      <div class="field">
+        <div class="field-label">CTA</div>
+        <div class="cta-box">➤ "Save this chart! Well-baby checkup ke liye DM karo."</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+function switchTab(id, btn) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  btn.classList.add('active');
+}
+
+function toggleCard(id) {
+  const card = document.getElementById(id);
+  card.classList.toggle('open');
+}
+</script>
